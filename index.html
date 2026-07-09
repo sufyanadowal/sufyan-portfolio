@@ -101,6 +101,56 @@
   }
   @keyframes draw{from{transform:scaleX(0);} to{transform:scaleX(1);}}
 
+  .hero-grid{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:40px;
+    flex-wrap:wrap;
+  }
+  .hero-text{flex:1; min-width:280px;}
+
+  /* 3D CUBE */
+  .cube-wrap{
+    width:150px; height:150px;
+    perspective:900px;
+    flex-shrink:0;
+    margin:0 auto;
+  }
+  .cube{
+    width:100%; height:100%;
+    position:relative;
+    transform-style:preserve-3d;
+    animation:spin 14s linear infinite;
+  }
+  .cube-face{
+    position:absolute;
+    width:150px; height:150px;
+    background:var(--panel);
+    border:1px solid var(--copper-dim);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono',monospace;
+    color:var(--copper);
+    font-size:12px;
+    letter-spacing:1.5px;
+    text-align:center;
+    padding:10px;
+    box-shadow:inset 0 0 30px rgba(232,163,61,0.08);
+  }
+  .face-front{transform:rotateY(0deg) translateZ(75px);}
+  .face-back{transform:rotateY(180deg) translateZ(75px);}
+  .face-right{transform:rotateY(90deg) translateZ(75px);}
+  .face-left{transform:rotateY(-90deg) translateZ(75px);}
+  .face-top{transform:rotateX(90deg) translateZ(75px); color:var(--teal); border-color:var(--teal);}
+  .face-bottom{transform:rotateX(-90deg) translateZ(75px);}
+  @keyframes spin{
+    from{transform:rotateX(0deg) rotateY(0deg);}
+    to{transform:rotateX(360deg) rotateY(360deg);}
+  }
+  @media(max-width:700px){
+    .hero-grid{flex-direction:column-reverse;}
+  }
+
   /* SPEC CARD (signature element) */
   section.spec{padding:40px 24px 90px;}
   .spec-card{
@@ -165,12 +215,12 @@
     border:1px solid var(--line);
     border-radius:6px;
     padding:26px 22px;
-    transition:border-color .25s, transform .25s;
+    transition:border-color .25s, transform .1s ease-out;
     position:relative;
+    will-change:transform;
   }
   .focus-card:hover{
     border-color:var(--copper-dim);
-    transform:translateY(-3px);
   }
   .focus-card .tag{
     font-family:'JetBrains Mono',monospace;
@@ -188,6 +238,64 @@
     font-size:14px;
     color:var(--muted);
   }
+
+  /* SERVICES */
+  section.services{padding:20px 24px 90px;}
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:18px;
+  }
+  @media(max-width:700px){.services-grid{grid-template-columns:1fr;}}
+  .service-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:24px 22px;
+    transition:border-color .25s, transform .1s ease-out;
+    will-change:transform;
+  }
+  .service-card:hover{
+    border-color:var(--copper-dim);
+  }
+  .service-card .cat-tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--copper);
+    letter-spacing:1px;
+  }
+  .service-card h3{
+    margin-top:10px;
+    font-size:18px;
+    font-weight:600;
+  }
+  .service-card ul{
+    margin-top:14px;
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .service-card li{
+    font-size:14px;
+    color:var(--muted);
+    padding-left:16px;
+    position:relative;
+  }
+  .service-card li::before{
+    content:"—";
+    position:absolute;
+    left:0;
+    color:var(--teal);
+  }
+  .services-note{
+    margin-top:28px;
+    text-align:center;
+    color:var(--muted);
+    font-size:14px;
+  }
+  .services-note a{color:var(--copper); text-decoration:none;}
+  .services-note a:hover{text-decoration:underline;}
 
   /* PROJECTS */
   section.projects{padding:20px 24px 90px;}
@@ -255,6 +363,7 @@
     <ul>
       <li><a href="#overview">Overview</a></li>
       <li><a href="#focus">Focus</a></li>
+      <li><a href="#services">Services</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -262,11 +371,23 @@
 </nav>
 
 <header class="hero">
-  <div class="wrap">
-    <div class="eyebrow">Status: Active &amp; Building</div>
-    <h1 class="title">M. Sufyan <span>Tariq</span></h1>
-    <p class="tagline">Exploring projects, gadgets, and innovation — one build at a time.</p>
-    <div class="hero-line"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <div class="eyebrow">Status: Active &amp; Building</div>
+      <h1 class="title">M. Sufyan <span>Tariq</span></h1>
+      <p class="tagline">Exploring projects, gadgets, and innovation — one build at a time.</p>
+      <div class="hero-line"></div>
+    </div>
+    <div class="cube-wrap">
+      <div class="cube">
+        <div class="cube-face face-front">BUILD</div>
+        <div class="cube-face face-back">REPAIR</div>
+        <div class="cube-face face-right">SOLAR</div>
+        <div class="cube-face face-left">TRADE</div>
+        <div class="cube-face face-top">INNOVATE</div>
+        <div class="cube-face face-bottom">SERVE</div>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -306,22 +427,101 @@
       <h2>Focus Areas</h2>
     </div>
     <div class="focus-grid">
-      <div class="focus-card">
+      <div class="focus-card tilt">
         <span class="tag">01 · BUILD</span>
         <h3>Projects</h3>
         <p>Turning ideas into hands-on builds — learning by making, not just reading.</p>
       </div>
-      <div class="focus-card">
+      <div class="focus-card tilt">
         <span class="tag">02 · EXPLORE</span>
         <h3>Gadgets</h3>
         <p>Curious about how devices work, taking them apart to understand the "why".</p>
       </div>
-      <div class="focus-card">
+      <div class="focus-card tilt">
         <span class="tag">03 · IMAGINE</span>
         <h3>Innovation</h3>
         <p>Chasing new ways to solve everyday problems with fresh thinking.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Available For Hire</div>
+      <h2>Services &amp; Skills</h2>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card tilt">
+        <span class="cat-tag">01 · AGRI-INNOVATION</span>
+        <h3>Innovation &amp; Agriculture</h3>
+        <ul>
+          <li>Drip irrigation &amp; horizontal farming setup</li>
+          <li>UV light-based agriculture systems (UAE climate)</li>
+          <li>Cooling systems for farming setups</li>
+          <li>Manual / natural AC &amp; fridge builds</li>
+        </ul>
+      </div>
+
+      <div class="service-card tilt">
+        <span class="cat-tag">02 · FABRICATION</span>
+        <h3>Fabrication &amp; Design</h3>
+        <ul>
+          <li>Carpentry</li>
+          <li>Plastic &amp; fiber body fabrication</li>
+          <li>Wood sample &amp; model making</li>
+          <li>Projector design</li>
+        </ul>
+      </div>
+
+      <div class="service-card tilt">
+        <span class="cat-tag">03 · CREATIVE</span>
+        <h3>Creative Work</h3>
+        <ul>
+          <li>Script writing</li>
+        </ul>
+      </div>
+
+      <div class="service-card tilt">
+        <span class="cat-tag">04 · REPAIR &amp; INSTALL</span>
+        <h3>Technical Repair &amp; Installation</h3>
+        <ul>
+          <li>Electrical work</li>
+          <li>Electronic repair</li>
+          <li>Solar installation</li>
+          <li>CCTV installation</li>
+          <li>Mobile repair</li>
+          <li>Motor winding</li>
+          <li>Fridge &amp; AC repair</li>
+          <li>Gadget repair</li>
+        </ul>
+      </div>
+
+      <div class="service-card tilt">
+        <span class="cat-tag">05 · TRADE</span>
+        <h3>Trade &amp; Business</h3>
+        <ul>
+          <li>Product distribution</li>
+          <li>Fast food business setup</li>
+          <li>Super market operations</li>
+        </ul>
+      </div>
+
+      <div class="service-card tilt">
+        <span class="cat-tag">06 · SERVICES</span>
+        <h3>Service-Based Work</h3>
+        <ul>
+          <li>Lab technician</li>
+          <li>Nursing</li>
+          <li>Store keeper</li>
+          <li>Bike delivery</li>
+        </ul>
+      </div>
+
+    </div>
+    <p class="services-note">Need help with any of the above? <a href="#contact">Get in touch</a> — happy to assist.</p>
   </div>
 </section>
 
@@ -342,7 +542,7 @@
   <div class="wrap">
     <div class="contact-card">
       <h2>Let's Connect</h2>
-      <p>Got an idea, a project, or just want to talk gadgets and innovation? Reach out.</p>
+      <p>Need any of the services listed above, have a project in mind, or just want to talk gadgets and innovation? Reach out.</p>
       <a class="contact-btn" href="mailto:sufyanadowal@gmail.com">✉ sufyanadowal@gmail.com</a>
     </div>
   </div>
@@ -351,6 +551,27 @@
 <footer>
   © 2026 M. Sufyan Tariq — Built with curiosity.
 </footer>
+
+<script>
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!prefersReduced && window.matchMedia('(hover: hover)').matches){
+    document.querySelectorAll('.tilt').forEach(function(card){
+      card.addEventListener('mousemove', function(e){
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        const rotateX = ((y - cy) / cy) * -6;
+        const rotateY = ((x - cx) / cx) * 6;
+        card.style.transform = 'perspective(700px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-4px) translateZ(0)';
+      });
+      card.addEventListener('mouseleave', function(){
+        card.style.transform = '';
+      });
+    });
+  }
+</script>
 
 </body>
 </html>
