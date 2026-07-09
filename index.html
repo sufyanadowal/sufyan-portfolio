@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M. Sufyan Tariq — Innovator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0F14;
+    --panel:#121821;
+    --panel-2:#161D27;
+    --line:#243040;
+    --text:#E7E5E0;
+    --muted:#8B96A3;
+    --copper:#E8A33D;
+    --copper-dim:#8a622a;
+    --teal:#4FD1C5;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:48px 48px;
+    opacity:0.08;
+    pointer-events:none;
+    z-index:0;
+  }
+  .wrap{max-width:920px; margin:0 auto; padding:0 24px; position:relative; z-index:1;}
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:10;
+    background:rgba(11,15,20,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex; justify-content:space-between; align-items:center; padding:16px 24px;}
+  .nav-id{font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--copper); letter-spacing:0.5px;}
+  nav ul{display:flex; gap:28px; list-style:none;}
+  nav a{color:var(--muted); text-decoration:none; font-size:14px; font-weight:500; transition:color .2s;}
+  nav a:hover{color:var(--text);}
+
+  /* HERO */
+  header.hero{
+    padding:110px 24px 90px;
+    position:relative;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--teal);
+    font-size:13px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:20px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:8px; height:8px;
+    background:var(--teal);
+    border-radius:50%;
+    box-shadow:0 0 8px var(--teal);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1;} 50%{opacity:0.3;}}
+  h1.title{
+    font-size:clamp(40px, 7vw, 76px);
+    font-weight:700;
+    line-height:1.05;
+    letter-spacing:-1px;
+  }
+  h1.title span{color:var(--copper);}
+  .tagline{
+    margin-top:22px;
+    font-size:18px;
+    color:var(--muted);
+    max-width:520px;
+  }
+  .hero-line{
+    margin-top:48px;
+    height:1px;
+    background:linear-gradient(90deg, var(--copper), transparent);
+    width:100%;
+    transform-origin:left;
+    animation:draw 1.4s ease-out;
+  }
+  @keyframes draw{from{transform:scaleX(0);} to{transform:scaleX(1);}}
+
+  /* SPEC CARD (signature element) */
+  section.spec{padding:40px 24px 90px;}
+  .spec-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .spec-header{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:16px 22px;
+    border-bottom:1px solid var(--line);
+    background:var(--panel-2);
+  }
+  .spec-header .mono{font-size:12px; color:var(--muted); letter-spacing:1px;}
+  .status-tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--teal);
+    border:1px solid var(--teal);
+    padding:3px 10px;
+    border-radius:20px;
+    letter-spacing:1px;
+  }
+  .spec-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+  }
+  .spec-item{
+    padding:22px;
+    border-bottom:1px solid var(--line);
+  }
+  .spec-item:nth-child(odd){border-right:1px solid var(--line);}
+  .spec-item .label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--copper);
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    margin-bottom:8px;
+  }
+  .spec-item .value{font-size:16px; color:var(--text);}
+  @media(max-width:600px){
+    .spec-grid{grid-template-columns:1fr;}
+    .spec-item:nth-child(odd){border-right:none;}
+  }
+
+  /* FOCUS AREAS */
+  section.focus{padding:20px 24px 90px;}
+  .section-head{margin-bottom:36px;}
+  .section-head .eyebrow{margin-bottom:10px;}
+  .section-head h2{font-size:32px;}
+  .focus-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:18px;
+  }
+  @media(max-width:760px){.focus-grid{grid-template-columns:1fr;}}
+  .focus-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:26px 22px;
+    transition:border-color .25s, transform .25s;
+    position:relative;
+  }
+  .focus-card:hover{
+    border-color:var(--copper-dim);
+    transform:translateY(-3px);
+  }
+  .focus-card .tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--teal);
+    letter-spacing:1px;
+  }
+  .focus-card h3{
+    margin-top:12px;
+    font-size:20px;
+    font-weight:600;
+  }
+  .focus-card p{
+    margin-top:10px;
+    font-size:14px;
+    color:var(--muted);
+  }
+
+  /* PROJECTS */
+  section.projects{padding:20px 24px 90px;}
+  .project-slot{
+    border:1px dashed var(--line);
+    border-radius:6px;
+    padding:40px 22px;
+    text-align:center;
+    color:var(--muted);
+  }
+  .project-slot .mono{
+    display:block;
+    font-size:12px;
+    color:var(--copper);
+    letter-spacing:1.5px;
+    margin-bottom:10px;
+  }
+
+  /* CONTACT */
+  section.contact{padding:20px 24px 120px;}
+  .contact-card{
+    background:linear-gradient(135deg, var(--panel), var(--panel-2));
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:44px 34px;
+    text-align:center;
+  }
+  .contact-card h2{font-size:30px; margin-bottom:14px;}
+  .contact-card p{color:var(--muted); max-width:420px; margin:0 auto 26px;}
+  .contact-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--copper);
+    color:#14100A;
+    font-weight:600;
+    padding:14px 28px;
+    border-radius:4px;
+    text-decoration:none;
+    font-size:15px;
+    transition:filter .2s, transform .2s;
+  }
+  .contact-btn:hover{filter:brightness(1.1); transform:translateY(-2px);}
+
+  footer{
+    padding:24px;
+    text-align:center;
+    color:var(--muted);
+    font-size:12px;
+    font-family:'JetBrains Mono',monospace;
+    border-top:1px solid var(--line);
+  }
+
+  :focus-visible{outline:2px solid var(--teal); outline-offset:3px;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <span class="nav-id">SUFYAN.T</span>
+    <ul>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#focus">Focus</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Status: Active &amp; Building</div>
+    <h1 class="title">M. Sufyan <span>Tariq</span></h1>
+    <p class="tagline">Exploring projects, gadgets, and innovation — one build at a time.</p>
+    <div class="hero-line"></div>
+  </div>
+</header>
+
+<section class="spec" id="overview">
+  <div class="wrap">
+    <div class="spec-card">
+      <div class="spec-header">
+        <span class="mono">UNIT_OVERVIEW.LOG</span>
+        <span class="status-tag">ONLINE</span>
+      </div>
+      <div class="spec-grid">
+        <div class="spec-item">
+          <div class="label">Name</div>
+          <div class="value">M. Sufyan Tariq</div>
+        </div>
+        <div class="spec-item">
+          <div class="label">Focus</div>
+          <div class="value">Projects &amp; Innovation</div>
+        </div>
+        <div class="spec-item">
+          <div class="label">Interest</div>
+          <div class="value">Gadgets &amp; Emerging Tech</div>
+        </div>
+        <div class="spec-item">
+          <div class="label">Mode</div>
+          <div class="value">Always tinkering, always learning</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="focus" id="focus">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">What Drives Me</div>
+      <h2>Focus Areas</h2>
+    </div>
+    <div class="focus-grid">
+      <div class="focus-card">
+        <span class="tag">01 · BUILD</span>
+        <h3>Projects</h3>
+        <p>Turning ideas into hands-on builds — learning by making, not just reading.</p>
+      </div>
+      <div class="focus-card">
+        <span class="tag">02 · EXPLORE</span>
+        <h3>Gadgets</h3>
+        <p>Curious about how devices work, taking them apart to understand the "why".</p>
+      </div>
+      <div class="focus-card">
+        <span class="tag">03 · IMAGINE</span>
+        <h3>Innovation</h3>
+        <p>Chasing new ways to solve everyday problems with fresh thinking.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="projects" id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">In the Lab</div>
+      <h2>Projects</h2>
+    </div>
+    <div class="project-slot">
+      <span class="mono">SLOT_001 // EMPTY</span>
+      First project coming soon — this space is reserved for it.
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="contact-card">
+      <h2>Let's Connect</h2>
+      <p>Got an idea, a project, or just want to talk gadgets and innovation? Reach out.</p>
+      <a class="contact-btn" href="mailto:sufyanadowal@gmail.com">✉ sufyanadowal@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 M. Sufyan Tariq — Built with curiosity.
+</footer>
+
+</body>
+</html>
